@@ -1,6 +1,7 @@
+require("dotenv").config();
 module.exports = {
-    mongoURI:'mongodb+srv://dor3400:13600@cluster0.xbeaj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-    jwtSecret: 'coolDudes'
+    mongoURI: process.env.DB_PROD,
+    jwtSecret: process.env.JWT_SECRET
     
 
 };

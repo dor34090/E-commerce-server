@@ -4,6 +4,8 @@ const cors = require("cors");
 const connectDB = require("./config/db.js");
 const port = process.env.port || 3000;
 const morgan = require("morgan");
+//the .config gives us access to the variables
+require("dotenv").config();
 
 app.use(cors());
 //connecting to mongoDB
