@@ -7,6 +7,7 @@ const morgan = require("morgan");
 //the .config gives us access to the variables
 require("dotenv").config();
 
+
 app.use(cors());
 //connecting to mongoDB
 connectDB();
