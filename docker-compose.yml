@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  server:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./
+    volumes:
+      - /server/node_modules
+      - ./:/server
+    environment:
+      - DB_PROD = ${DB_PROD}
+    ports:
+      - "3000:3000"
