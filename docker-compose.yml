@@ -7,7 +7,7 @@ services:
     volumes:
       - /server/node_modules
       - ./:/server
-    environment:
-      - DB_PROD = ${DB_PROD}
+    environment: 
+      - "DB_PROD = ${DB_PROD}"
     ports:
-      - "3000:3000"
+      - "5000:5000"
