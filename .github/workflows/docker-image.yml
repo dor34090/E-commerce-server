@@ -48,7 +48,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Logging into docker hub
       run:
-        echo "${{env.DOCKERPASS}}" | docker login --username "${{env.DOCKERID}}" --password-stdin 
+        echo "${{secrets.DOCKERPASS}}" | docker login --username "${{secrets.DOCKERID}}" --password-stdin 
 
   test_success3:
     needs: test_success2
