@@ -46,9 +46,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Building a production grade dockerfile
+    - name: Logging into docker hub
       run:
-        echo "${{env.DOCKERPASS}}"" | docker login --username "${{env.DOCKERID}}" --password-stdin 
+        echo "${{env.DOCKERPASS}}" | docker login --username "${{env.DOCKERID}}" --password-stdin 
 
   test_success3:
     needs: test_success2
@@ -57,6 +57,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Building a production grade dockerfile
+    - name: Pushing docker image
       run:
         docker push cookiemonster073/server
