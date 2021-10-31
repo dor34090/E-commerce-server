@@ -25,3 +25,16 @@ jobs:
     - uses: actions/checkout@v2
     - name: Test the image created
       run: docker run cookiemonster073/server npm test -- --coverage
+
+
+  test_success:
+    needs: test
+    runs-on: ubuntu-latest
+    
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Building a production grade dockerfile
+      run: docker build -t cookiemonster073/server .
+      run: echo "${{env.DOCKERPASS}}"" | docker login --username "${{env.DOCKERID}}" --password-stdin 
+      run: docker push cookiemonster073/server
