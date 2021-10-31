@@ -4,7 +4,9 @@ services:
   - docker
   #the rest is handled by docker
 
+
 before_install:
   - docker build -t cookiemonster073/server -f Dockerfile.dev .
 
 script:
+  - docker run cookiemonster073/server npm test -- --coverage
