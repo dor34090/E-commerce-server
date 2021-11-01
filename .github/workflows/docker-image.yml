@@ -21,6 +21,11 @@ jobs:
     - name: Test the image created
       run: docker run cookiemonster073/server npm test -- --coverage
 
+    - name: Decrypt the env file
+      env:
+        password: ${{secrets.SECRET_KEY}}
+      run: openssl enc -aes256 -d -in .enc -out .env -k $password
+
     - name: Logging into docker hub
       env:
         dockerid: ${{secrets.DOCKERID}}
