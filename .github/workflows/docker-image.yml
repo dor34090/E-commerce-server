@@ -62,4 +62,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Pushing docker image to hub
       run:
-        docker push --all-tags docker.io/cookiemonster073/server
+        docker image push --all-tags docker.io/cookiemonster073/server
