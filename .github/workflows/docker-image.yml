@@ -26,7 +26,7 @@ jobs:
     - name: Test the image created
       run: docker run cookiemonster073/server npm test -- --coverage
 
-  test_success1:
+  test_success:
     needs: test
     runs-on: ubuntu-latest
     
@@ -40,26 +40,10 @@ jobs:
       run:
         echo "$dockerpass" | docker login --username "$dockerid" --password-stdin 
 
-
-  test_success2:
-    needs: test_success1
-    runs-on: ubuntu-latest
-    
-
-    steps:
-    - uses: actions/checkout@v2
     - name: Building a production grade dockerfile
       run:
         docker build -t cookiemonster073/server .
         
-
-  test_success3:
-    needs: test_success2
-    runs-on: ubuntu-latest
-    
-
-    steps:
-    - uses: actions/checkout@v2
     - name: Pushing docker image to docker hub
       run:
         docker image push --all-tags docker.io/cookiemonster073/server
