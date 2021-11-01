@@ -27,7 +27,7 @@ jobs:
       run: docker run cookiemonster073/server npm test -- --coverage
 
   test_success1:
-    needs: test_success1
+    needs: test
     runs-on: ubuntu-latest
     
 
@@ -42,7 +42,7 @@ jobs:
 
 
   test_success2:
-    needs: test
+    needs: test_success1
     runs-on: ubuntu-latest
     
 
