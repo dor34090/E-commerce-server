@@ -23,8 +23,31 @@ jobs:
 
     - name: Decrypt the env file
       env:
-        password: ${{secrets.SECRET_KEY}}
-      run: openssl enc -aes256 -d -in .enc -out .env -k $password
+        password1: ${{secrets.SECRET_KEY}}
+      run: openssl enc -aes256 -d -in .enc -out .env -k $password1
+
+    - name: Decrypt service account
+      env:
+        password2: ${{secrets.SERVICE_KEY}}
+      run: openssl enc -aes256 -d -in serviceAccount.json.enc -out serviceAccount.json -k $password2
+
+      #checking if gcp sdk is intalled
+      #if it is, then remove it
+      #then, install it again and enter credentials
+    - name: Install GCP
+      run: if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+
+    - name: Set up GCP environment
+      run: source $HOME/google-cloud-sdk/path.bash.inc
+
+    - name: GCP auth
+      run: gcloud auth activate-service-account --key-file serviceAccount.json
+
+    - name: GCP project setup
+      run: gcloud config set project e-shop-331108
+
+    - name: GCP zone setup
+      run: gcloud config set compute/zone europe-west1-d
 
     - name: Logging into docker hub
       env:
@@ -40,3 +63,6 @@ jobs:
     - name: Pushing docker image to docker hub
       run:
         docker image push --all-tags docker.io/cookiemonster073/server
+
+    - name: Deploy
+      run: bash ./deploy.sh

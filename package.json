@@ -7,7 +7,8 @@
     "run-test": "nyc mocha --exit test/**/**/*.test.js",
     "test": "nyc --reporter=lcov npm run run-test",
     "view-coverage": "cd coverage/lcov-report/ && lite-server && ../../",
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "node server.js"
   },
   "repository": {
     "type": "git",

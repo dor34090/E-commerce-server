@@ -1,0 +1,7 @@
+env: flex
+runtime: custom #since it's a container
+service: default
+manual_scaling:
+    instances: 1
+  resources:
+    cpu: 1
