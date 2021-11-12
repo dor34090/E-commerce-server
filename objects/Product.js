@@ -31,6 +31,9 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    thumbnail:{
+        type: String,
+    },
     created:{
         type: Date,
         default: Date.now()
