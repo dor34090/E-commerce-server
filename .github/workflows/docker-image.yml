@@ -33,7 +33,7 @@ jobs:
 
       #checking if gcp sdk is intalled
       #if it is, then remove it
-      #then, install it again and enter gcp credentials
+      #then, install it again and enter credentials
     - name: Install GCP
       run: if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
 
