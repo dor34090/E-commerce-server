@@ -34,6 +34,12 @@ const productSchema = new mongoose.Schema({
     thumbnail:{
         type: String,
     },
+    images:{
+        type: [String],
+    },
+    features: {
+        type: [String],
+    },
     created:{
         type: Date,
         default: Date.now()

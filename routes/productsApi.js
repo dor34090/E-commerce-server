@@ -44,7 +44,7 @@ async (req, res)=>{
         return res.status(400).json({errors: errors.array()});
     }
     console.log(req.user);
-    const {name, description, category, price, brand, quantity} = req.body
+    const {name, description, category, price, brand, features, quantity} = req.body
     const newProduct = new Product({
         userId: req.user.id,
         //when the value and the structure have the same name you can just write it once
@@ -53,6 +53,7 @@ async (req, res)=>{
         category,
         price,
         brand,
+        features,
         quantity
     });
     const pName= newProduct.name;
@@ -116,7 +117,7 @@ router.get("/instructors/:id",auth,  async (req, res) =>{
 router.post("/upload/thumbnail",auth,multer.single("file"),  async (req, res) =>{
     try {
         const {id} = req.user;
-        const {productId} = req.query;
+        const {productId, multiple} = req.query;
         if(!req.file){
             res.status(400, "No file uploaded");
             return;
@@ -134,11 +135,20 @@ router.post("/upload/thumbnail",auth,multer.single("file"),  async (req, res) =>
         blobStream.on(`finish`, async ()=>{
             console.log(`successfully uploaded ${req.file.originalname}`);
             await blob.makePublic();
-            await Product.findOneAndUpdate(
-                {_id:productId},
-                {$set: {thumbnail: blob.metadata.mediaLink}},
-                 {new:true}
-                 );
+            if(multiple){
+                await Product.findOneAndUpdate(
+                    {_id:productId},
+                    {$push: {images: blob.metadata.mediaLink}},
+                     {new:true, upsert: true}
+                     );
+            }else{
+                await Product.findOneAndUpdate(
+                    {_id:productId},
+                    {$set: {thumbnail: blob.metadata.mediaLink}},
+                     {new:true}
+                     );
+            }
+            
                  
             res.status(200).send({msg: `successfully uploaded ${req.file.originalname}`});
         });
