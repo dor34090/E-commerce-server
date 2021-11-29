@@ -8,7 +8,8 @@
     "test": "nyc --reporter=lcov npm run run-test",
     "view-coverage": "cd coverage/lcov-report/ && lite-server && ../../",
     "start": "node server.js",
-    "server": "node server.js"
+    "server": "node server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
